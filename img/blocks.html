@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .block{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+        }
+        .red{
+            background: red;
+            left: 0;
+            top: 0;
+        }
+        .blue{
+            background: blue;
+            top: 0;
+            right: 0;
+        }
+        .green{
+            background: green;
+            left: 0;
+            bottom: 0;
+        }
+        .yellow{
+            background: yellow;
+            right: 0;
+            bottom: 0;
+        }
+        .circle{
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: black solid 2px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="block red"></div>
+    <div class="block green"></div>
+    <div class="block blue"></div>
+    <div class="block yellow"></div>
+    <!--<div class="circle" id="testCircle" style="color: coral"></div>-->
+    <script>
+        /*const testCircle = document.getElementById('testCircle');
+        testCircle.onmousedown = (event)=>{
+            console.log("Нажата кнопка мыши")
+            window.onmousemove = (e)=>{
+                testCircle.style.left = e.clientX-40 + "px";
+                testCircle.style.top = e.clientY-40 + "px";
+                console.log("Перемещение по координатам", e.clientX, e.clientY);
+            }
+            window.onmouseup = (ev)=>{
+                window.onmousemove = ()=>{return false;}
+                console.log("Кнопка мыши отпущена")
+            }
+        }*/
+        const colors = ["red", "green", "blue", "yellow"];
+
+        function getIntRandom(min, max){
+            return Math.floor(Math.random()*(max-min)+min);
+        }
+        const count = getIntRandom(4,8);
+        for (let i = 0; i < count; i++) {
+            const div = document.createElement("div");
+            div.classList.add("circle");
+            div.style.left = getIntRandom(200, window.innerWidth-80-200)+"px";
+            div.style.top = getIntRandom(200, window.innerHeight-80-200)+"px";
+            div.style.background = colors[getIntRandom(0, 4)];
+            div.onmousedown = (e)=>{
+                div.style.left = e.clientX-40 + "px";
+                div.style.top = e.clientY-40 + "px";
+                window.onmousemove = (event)=>{
+                    div.style.left = event.clientX-40 + "px";
+                    div.style.top = event.clientY-40 + "px";
+                }
+                window.onmouseup = (ev)=>{
+                    window.onmousemove = ()=>{return false;}
+                    console.log(ev)
+                }
+            }
+            document.body.append(div)
+        }
+    </script>
+</body>
+</html>
